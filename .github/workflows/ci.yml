@@ -39,7 +39,7 @@ jobs:
   offline:
     # "offline" means no network calls and no secrets. The simulations get the same pinned Postgres as
     # the integration job, so the Postgres blocks (pipeline, safety, ops, audit) run and block.
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 45
     services:
       postgres:
@@ -61,6 +61,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           persist-credentials: false
+          ref: f422e5b7e130623ae482c9e777994d8b2a5b1347
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: 1.4.2
@@ -113,7 +114,7 @@ jobs:
     # and enumeration limits, MCP OAuth PKCE, the backend's "two logins" RLS check) and the e2e suite
     # (tests/e2e). Sends are dry-run and OTP providers are fakes: nothing leaves the runner.
     name: integration
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 45
     services:
       # The dev Postgres port (54339). The test helpers create one database per test process.
@@ -137,6 +138,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           persist-credentials: false
+          ref: f422e5b7e130623ae482c9e777994d8b2a5b1347
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: 1.4.2
